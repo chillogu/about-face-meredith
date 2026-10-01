@@ -1,76 +1,67 @@
-import Nav from "../components/Nav";
-import Footer from "../components/Footer";
+import Image from "next/image";
+import { Container, Kicker } from "../components/ui";
+import { contact, mailto, sms, tel } from "../lib/contact";
 
 export const metadata = {
-  title: "Contact | About Face Makeup Artist",
+  title: "Contact",
+  description: "Text, call, or email Meredith Hayman to book bridal makeup, a lesson, an overhaul, or a workshop.",
 };
+
+const include = ["The date", "Where you are", "What it’s for (wedding, event, lesson, workshop)", "How many people need makeup"];
 
 export default function Contact() {
   return (
-    <>
-      <Nav />
-      <main className="pt-16">
-        <section className="bg-[#f5ede8] py-20">
-          <div className="max-w-5xl mx-auto px-6">
-            <p className="text-[#b5706a] text-sm font-semibold uppercase tracking-widest mb-3">Get in Touch</p>
-            <h1 className="font-[family-name:var(--font-playfair)] text-5xl font-bold text-[#1a1612]">Contact</h1>
-          </div>
-        </section>
+    <section aria-labelledby="contact-title">
+      <Container className="grid gap-14 py-14 sm:py-20 lg:grid-cols-[1.2fr_1fr] lg:gap-20">
+        <div>
+          <Kicker>Contact</Kicker>
+          <h1 id="contact-title" className="mt-4 text-5xl leading-[1.05] sm:text-6xl">
+            Text me. It&rsquo;s the fastest way.
+          </h1>
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+            Send me a quick note with your date and I&rsquo;ll get back to you. Email and Instagram work too.
+          </p>
 
-        <section className="py-20">
-          <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-16">
-            <div>
-              <h2 className="font-[family-name:var(--font-playfair)] text-3xl font-bold text-[#1a1612] mb-6">
-                Ready to book or have questions? Reach out.
-              </h2>
-              <div className="space-y-6 text-[#7a6f68]">
-                <div>
-                  <p className="text-xs uppercase tracking-widest text-[#b5706a] mb-1">Email</p>
-                  <a href="mailto:meredith@meredithhayman.com" className="text-[#1a1612] hover:text-[#b5706a] transition-colors">
-                    meredith@meredithhayman.com
-                  </a>
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-widest text-[#b5706a] mb-1">Phone</p>
-                  <a href="tel:6464185445" className="text-[#1a1612] hover:text-[#b5706a] transition-colors">
-                    646.418.5445
-                  </a>
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-widest text-[#b5706a] mb-1">Instagram</p>
-                  <a href="https://instagram.com/meredithmakeup" target="_blank" rel="noopener noreferrer" className="text-[#1a1612] hover:text-[#b5706a] transition-colors">
-                    @MeredithMakeup
-                  </a>
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-widest text-[#b5706a] mb-1">Service Area</p>
-                  <p className="text-sm leading-relaxed">
-                    Serving the New York Metro Area, Westchester, Manhattan, Hudson Valley, New Jersey, and Rockland, Putnam, Dutchess, and Orange Counties.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-2xl border border-[#e8e0d8] p-8 shadow-sm">
-              <h3 className="font-[family-name:var(--font-playfair)] text-xl font-semibold text-[#1a1612] mb-6">Send a message</h3>
-              <p className="text-sm text-[#7a6f68] mb-6">
-                For the fastest response, email directly at{" "}
-                <a href="mailto:meredith@meredithhayman.com" className="text-[#b5706a] underline">
-                  meredith@meredithhayman.com
-                </a>{" "}
-                or call 646.418.5445.
-              </p>
-              <a
-                href="mailto:meredith@meredithhayman.com?subject=Booking Inquiry"
-                className="flex items-center justify-center w-full px-6 py-4 bg-[#b5706a] text-white rounded-xl text-sm font-medium hover:bg-[#a35f59] transition-colors"
-              >
-                Email Meredith
+          <ul className="mt-10 divide-y divide-line border-y border-line">
+            <li className="flex flex-wrap items-baseline justify-between gap-2 py-5">
+              <span className="text-sm font-medium text-berry">Text or call</span>
+              <span className="flex gap-4">
+                <a href={sms} className="font-serif text-3xl text-ink hover:text-berry">{contact.phone}</a>
+                <a href={tel} className="self-center text-sm text-muted underline underline-offset-4 hover:text-berry">call</a>
+              </span>
+            </li>
+            <li className="flex flex-wrap items-baseline justify-between gap-2 py-5">
+              <span className="text-sm font-medium text-berry">Email</span>
+              <a href={mailto} className="break-all text-lg text-ink hover:text-berry">{contact.email}</a>
+            </li>
+            <li className="flex flex-wrap items-baseline justify-between gap-2 py-5">
+              <span className="text-sm font-medium text-berry">Instagram</span>
+              <a href={contact.instagram} target="_blank" rel="noopener noreferrer" className="text-lg text-ink hover:text-berry">
+                {contact.instagramHandle}<span className="sr-only"> (opens in a new tab)</span>
               </a>
-            </div>
+            </li>
+          </ul>
+
+          <p className="mt-8 text-[15px] leading-relaxed text-muted">I work across {contact.area}.</p>
+        </div>
+
+        <div className="space-y-6">
+          <div className="relative aspect-square overflow-hidden rounded-[2rem] bg-blush">
+            <Image src="/img/meredith-smile.jpg" alt="Meredith Hayman" fill priority sizes="(min-width: 1024px) 440px, 100vw" className="object-cover object-[50%_30%]" />
           </div>
-        </section>
-      </main>
-      <Footer />
-    </>
+          <div className="rounded-3xl bg-blush p-6 sm:p-8">
+            <h2 className="text-2xl">To book faster, send me:</h2>
+            <ul className="mt-4 space-y-2">
+              {include.map((i) => (
+                <li key={i} className="flex gap-3 text-ink">
+                  <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-berry" />
+                  {i}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </Container>
+    </section>
   );
 }

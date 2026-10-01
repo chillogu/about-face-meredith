@@ -1,9 +1,12 @@
 "use client";
+
+import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { sms } from "../lib/contact";
 
 const links = [
-  { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
   { href: "/workshops", label: "Workshops" },
@@ -11,54 +14,74 @@ const links = [
 ];
 
 export default function Nav() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [lastPath, setLastPath] = useState(pathname);
+
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
+    setOpen(false);
+  }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#faf8f6]/95 backdrop-blur border-b border-[#e8e0d8]">
-      <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="font-[family-name:var(--font-playfair)] text-lg font-semibold tracking-tight text-[#1a1612]">
-          About Face
+    <header className="sticky top-0 z-50 border-b border-line bg-white">
+      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-5 sm:px-8">
+        <Link href="/" className="flex items-center" aria-label="About Face by Meredith, home">
+          <Image src="/img/logo.png" alt="" width={84} height={70} priority className="h-14 w-auto" />
         </Link>
 
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="text-sm text-[#7a6f68] hover:text-[#b5706a] transition-colors"
-            >
-              {l.label}
-            </Link>
-          ))}
-          <a
-            href="mailto:meredith@meredithhayman.com"
-            className="text-sm px-4 py-2 bg-[#b5706a] text-white rounded-full hover:bg-[#a35f59] transition-colors"
-          >
-            Book Now
-          </a>
-        </div>
+        <nav aria-label="Main" className="hidden md:block">
+          <ul className="flex items-center gap-8">
+            {links.map((l) => (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  aria-current={pathname === l.href ? "page" : undefined}
+                  className="text-[15px] text-muted transition-colors hover:text-berry aria-[current=page]:text-berry"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <a
+                href={sms}
+                className="rounded-full bg-berry px-5 py-2.5 text-[15px] font-medium text-white transition-colors hover:bg-berry-dark"
+              >
+                Text Meredith
+              </a>
+            </li>
+          </ul>
+        </nav>
 
-        {/* Mobile hamburger */}
-        <button className="md:hidden p-2" onClick={() => setOpen(!open)} aria-label="Menu">
-          <div className="w-5 h-0.5 bg-[#1a1612] mb-1" />
-          <div className="w-5 h-0.5 bg-[#1a1612] mb-1" />
-          <div className="w-5 h-0.5 bg-[#1a1612]" />
+        <button
+          type="button"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-line md:hidden"
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+          <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round">
+            {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 8h16M4 16h16" />}
+          </svg>
         </button>
       </div>
 
-      {open && (
-        <div className="md:hidden bg-[#faf8f6] border-t border-[#e8e0d8] px-6 py-4 flex flex-col gap-4">
+      <nav id="mobile-menu" aria-label="Mobile" hidden={!open} className="border-t border-line bg-white px-5 py-4 md:hidden">
+        <ul className="flex flex-col">
           {links.map((l) => (
-            <Link key={l.href} href={l.href} className="text-sm text-[#7a6f68]" onClick={() => setOpen(false)}>
-              {l.label}
-            </Link>
+            <li key={l.href}>
+              <Link href={l.href} className="block py-3 font-serif text-2xl text-ink">
+                {l.label}
+              </Link>
+            </li>
           ))}
-          <a href="mailto:meredith@meredithhayman.com" className="text-sm text-[#b5706a]">
-            Book Now
-          </a>
-        </div>
-      )}
-    </nav>
+        </ul>
+        <a href={sms} className="mt-3 block rounded-full bg-berry px-5 py-3 text-center font-medium text-white">
+          Text Meredith
+        </a>
+      </nav>
+    </header>
   );
 }

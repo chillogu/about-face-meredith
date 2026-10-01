@@ -1,114 +1,81 @@
-import Nav from "../components/Nav";
-import Footer from "../components/Footer";
 import Image from "next/image";
+import { BookingBand, Container, Kicker, TextButton } from "../components/ui";
 
 export const metadata = {
-  title: "Workshops | About Face Makeup Artist",
+  title: "Makeup Workshops",
+  description:
+    "Hands-on makeup workshops for you and your friends with Meredith Hayman. Learn an easy day-to-night routine and go home with personal product recommendations.",
 };
+
+const steps = [
+  {
+    title: "Pick a night and invite your friends",
+    body: "Girls’ night, moms’ night out, a bachelorette. Text me the date and roughly how many people.",
+  },
+  {
+    title: "Come as you are",
+    body: "Wear your everyday makeup and bring a few products you’d like to learn to use better.",
+  },
+  {
+    title: "Watch half, do half",
+    body: "I do a look on one half of a volunteer’s face. She does the other half herself, and everyone follows along step by step.",
+  },
+  {
+    title: "Go home with a plan",
+    body: "You’ll leave with an easy day-to-night routine and product recommendations that are just for you.",
+  },
+];
 
 export default function Workshops() {
   return (
     <>
-      <Nav />
-      <main className="pt-16">
-        <section className="bg-[#f5ede8] py-20">
-          <div className="max-w-5xl mx-auto px-6">
-            <p className="text-[#b5706a] text-sm font-semibold uppercase tracking-widest mb-3">Group Sessions</p>
-            <h1 className="font-[family-name:var(--font-playfair)] text-5xl font-bold text-[#1a1612]">About Face Workshops</h1>
+      <section aria-labelledby="ws-title">
+        <Container className="grid items-center gap-12 py-14 sm:py-20 lg:grid-cols-[1.1fr_1fr]">
+          <div>
+            <Kicker>Workshops</Kicker>
+            <h1 id="ws-title" className="mt-4 text-5xl leading-[1.05] sm:text-6xl">
+              A girls&rsquo; night where everyone gets <em className="text-berry">better</em> at makeup
+            </h1>
+            <p className="mt-6 text-lg leading-relaxed text-muted">
+              Workshops are hands-on lessons for you and a few of your closest friends. You learn on your own face,
+              with your own products, so it actually sticks. And there&rsquo;s no sales pitch.
+            </p>
+            <div className="mt-8">
+              <TextButton label="Text me to plan one" />
+            </div>
           </div>
-        </section>
+          <div className="relative aspect-[762/348] overflow-hidden rounded-3xl bg-blush lg:aspect-[4/3]">
+            <Image src="/img/workshop.jpg" alt="Meredith brushing foundation onto a workshop guest" fill priority sizes="(min-width: 1024px) 520px, 100vw" className="object-cover object-left" />
+          </div>
+        </Container>
+      </section>
 
-        {/* What is a workshop */}
-        <section className="py-20">
-          <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="font-[family-name:var(--font-playfair)] text-4xl font-bold text-[#1a1612] mb-5">
-                Easy makeup tips and tricks for the everyday woman.
-              </h2>
-              <div className="space-y-4 text-[#7a6f68] leading-relaxed">
-                <p>
-                  Highly experienced makeup artist Meredith Hayman will show you and a few of your closest friends how to look your absolute best through hands-on makeup workshops designed to teach you how to apply and wear makeup confidently.
-                </p>
-                <p>
-                  Utilizing a &ldquo;half-face&rdquo; technique she learned from Trish McEvoy herself, Meredith will show the group techniques on half of a model&apos;s face and then have the model recreate it herself to ensure that she and the rest of the group understand each and every step.
-                </p>
-                <p>
-                  As a makeup artist, Meredith prides herself on making her clients look like the best versions of themselves. With About Face workshops, she&apos;s taking that to a whole new level by empowering the women she works with to do it themselves.
-                </p>
-                <p className="font-medium text-[#1a1612]">
-                  There is no sales pitch at an About Face workshop. Just techniques you&apos;ll actually use.
-                </p>
-              </div>
-              <a href="mailto:meredith@meredithhayman.com" className="inline-block mt-8 px-6 py-3 bg-[#b5706a] text-white rounded-full text-sm font-medium hover:bg-[#a35f59] transition-colors">
-                Book a Workshop
-              </a>
-            </div>
-            <div className="relative h-[480px] rounded-2xl overflow-hidden shadow-xl">
-              <Image
-                src="https://images.squarespace-cdn.com/content/v1/5997155eb8a79b2ad1dbc7bf/1517255073432-7PTU4ZJ4QRIMO7K2CLYS/AboutFace_Home_BookWorkshop2.jpg"
-                alt="About Face Workshop"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </div>
-          </div>
-        </section>
+      <section aria-labelledby="how-title" className="border-t border-line bg-white py-20 sm:py-24">
+        <Container>
+          <h2 id="how-title" className="text-4xl sm:text-5xl">How it works</h2>
+          <ol className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+            {steps.map((s, i) => (
+              <li key={s.title}>
+                <p className="font-serif text-5xl text-berry" aria-hidden="true">{i + 1}</p>
+                <h3 className="mt-3 text-2xl leading-snug">{s.title}</h3>
+                <p className="mt-2 leading-relaxed text-muted">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+        </Container>
+      </section>
 
-        {/* How it works */}
-        <section className="bg-[#f0ebe5] py-20">
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="text-center mb-14">
-              <h2 className="font-[family-name:var(--font-playfair)] text-4xl font-bold text-[#1a1612]">How it works</h2>
-            </div>
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  step: "01",
-                  title: "Host at your home",
-                  desc: "Gather 4–8 friends in your living room. Meredith comes to you with everything needed.",
-                },
-                {
-                  step: "02",
-                  title: "Live demonstration",
-                  desc: "Using the half-face technique, Meredith demonstrates on a volunteer model — step by step.",
-                },
-                {
-                  step: "03",
-                  title: "Everyone practices",
-                  desc: "Each guest recreates the look on themselves. Meredith coaches and answers questions throughout.",
-                },
-              ].map((item) => (
-                <div key={item.step} className="bg-white rounded-2xl p-8 border border-[#e8e0d8]">
-                  <div className="font-[family-name:var(--font-playfair)] text-5xl font-bold text-[#e8e0d8] mb-4">{item.step}</div>
-                  <h3 className="font-[family-name:var(--font-playfair)] text-xl font-semibold text-[#1a1612] mb-3">{item.title}</h3>
-                  <p className="text-sm text-[#7a6f68] leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+      <section aria-labelledby="why-title" className="py-20 sm:py-24">
+        <Container className="max-w-3xl">
+          <h2 id="why-title" className="text-4xl sm:text-5xl">Why I teach this way</h2>
+          <p className="mt-6 text-lg leading-relaxed text-muted">
+            I learned the half-face method from Trish McEvoy early in my career. Watching someone do your makeup is
+            nice. Doing it yourself, with someone right there to help, is how you remember it the next morning.
+          </p>
+        </Container>
+      </section>
 
-        {/* Perfect for */}
-        <section className="py-20">
-          <div className="max-w-5xl mx-auto px-6 text-center">
-            <h2 className="font-[family-name:var(--font-playfair)] text-4xl font-bold text-[#1a1612] mb-6">Perfect for</h2>
-            <div className="flex flex-wrap justify-center gap-4">
-              {["Girls Night In", "Birthday Party", "Bachelorette", "Moms Night Out", "Team Bonding", "Gift Giving"].map((tag) => (
-                <span key={tag} className="px-5 py-2 bg-[#f5ede8] text-[#b5706a] rounded-full text-sm font-medium border border-[#d4998f]">
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <div className="mt-12">
-              <a href="mailto:meredith@meredithhayman.com" className="px-8 py-4 bg-[#b5706a] text-white rounded-full text-sm font-medium hover:bg-[#a35f59] transition-colors">
-                Inquire about hosting
-              </a>
-            </div>
-          </div>
-        </section>
-      </main>
-      <Footer />
+      <BookingBand title="Got a group in mind?" />
     </>
   );
 }

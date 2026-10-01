@@ -1,14 +1,6 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.squarespace-cdn.com",
-      },
-    ],
-  },
-};
+// All images are stored in /public/img, so no remote image hosts are needed.
+const nextConfig: NextConfig = {};
 
 export default nextConfig;
